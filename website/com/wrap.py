@@ -68,8 +68,9 @@ def get_ipo_schedule():
         elif i % 7 == 6:
             analysis.append(d)
     
-    df = DataFrame({columnList[0] : stockList, " 시작일" : scheduleListStart , " 종료일" : scheduleListEnd, columnList[2] : ipo_price1,columnList[3] : ipo_price2,columnList[4] : comp_rate,columnList[5] : manager})
+    df = DataFrame({columnList[0] : stockList, "시작일" : scheduleListStart , "종료일" : scheduleListEnd, columnList[2] : ipo_price1,columnList[3] : ipo_price2,columnList[4] : comp_rate,columnList[5] : manager})
     return df
 
 if __name__ == "__main__":
     print(get_ipo_schedule())
+    
