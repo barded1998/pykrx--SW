@@ -1,8 +1,7 @@
 import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 from numpy import promote_types
-
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 from website import krx
 from website import naver
@@ -2381,9 +2380,47 @@ def get_etf_tracking_error(fromdate, todate, ticker) -> DataFrame:
     return krx.get_etf_tracking_error(fromdate, todate, ticker)
 
 def get_invest_info(ticker):
+    """주식 정보 조회
+    Args:
+        ticker (str): 주식 티커(코드명)
+    Returns:
+        Series:
+
+                    시가총액                 462조612억원   
+            시가총액순위                   코스피1위
+            상장주식수            5,969,782,550     
+            액면가 | 매매단위           100원 | 1주 
+            외국인한도주식수(A)      5,969,782,550  
+            외국인보유주식수(B)      3,082,624,125  
+            외국인소진율(B/A)             51.64%    
+            투자의견 | 목표주가    4.00매수 | 96,348
+            52주최고 | 최저     96,800 | 68,300     
+            PER | EPS      15.00배 | 5,159원        
+            추정PER | EPS    13.00배 | 5,846원      
+            PBR | BPS      1.82배 | 42,447원        
+            배당수익률                    3.87%     
+            동일업종PER                 13.00배     
+            동일업종등락률                 +1.48%  
+    """
+    print(naver.get_invest_info(ticker))
     return naver.get_invest_info(ticker)
 
 def get_market_index():
+    """금리 조회
+    Args:
+        None
+    Returns:
+        DataFrame:
+
+                               구분    금리   등락율
+            0   CD금리(91일)  1.27  0.00
+            1         콜금리  0.96  0.01
+            2     국고채(3년)  1.87  0.01
+            3     회사채(3년)  2.44  0.01
+            4     COFIX잔액  1.11  0.00
+            5  COFIX신규취급액  1.29  0.00
+    """
+    print(naver.get_market_index())
     return naver.get_market_index()    
 
 def get_exchange_list(currency = None):
@@ -2411,7 +2448,9 @@ def get_exchange_list(currency = None):
     """
     df = naver.get_exchange_list()
     if currency is None :
+        print(df)
         return df
+    print(df.loc[df['통화명'].str.contains(currency)])
     return df.loc[df['통화명'].str.contains(currency)]
 
 def get_ipo_schedule(date = None, manager = None):
@@ -2465,9 +2504,10 @@ def get_ipo_schedule(date = None, manager = None):
         df = df.loc[mask]
     if manager != None:
         df = df.loc[df['주간사'].str.contains(manager)]
+    print(df)
     return df
 
 
 if __name__ == "__main__":
-    print(get_ipo_schedule("2021-11-08"))
-    print(get_ipo_schedule(manager = "대신증권"))
+    get_invest_info("005930")
+    get_market_index()

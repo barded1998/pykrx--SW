@@ -1,7 +1,7 @@
 import sys, os
 
-from pykrx.website.comm.util import dataframe_empty_handler
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from comm.util import dataframe_empty_handler
 
 from market.ticker import get_stock_ticker_isin, get_stock_ticekr_market
 from market.core import (개별종목시세, 전종목등락률, PER_PBR_배당수익률_전종목,
